@@ -1,0 +1,35 @@
+import telebot
+from telebot import types # для указание типов
+
+bot = telebot.TeleBot('5822068738:AAHNdQIVAgAvGeHOtSnCl4LQLgEb18lCQKY')
+
+@bot.message_handler(commands=['start'])
+def start(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn1 = types.KeyboardButton("525")
+    btn2 = types.KeyboardButton("525a")
+    btn3 = types.KeyboardButton("525б")
+    btn4 = types.KeyboardButton("525в")
+    btn5 = types.KeyboardButton("525i1")
+    btn6 = types.KeyboardButton("525i2")
+    markup.add(btn1, btn2, btn3, btn4, btn5, btn6, )
+    bot.send_message(message.chat.id, text="Выберите группу, список которой хотите узнать", reply_markup=markup)
+    
+@bot.message_handler(content_types=['text'])
+def func(message):
+    if(message.text == "525"):
+        bot.send_photo(message.chat.id, open('/list525.png', 'rb'))
+    elif(message.text == "525a"):
+        bot.send_photo(message.chat.id, open('/list525a.png', 'rb'))
+    elif(message.text == "525б"):
+        bot.send_photo(message.chat.id, open('/list525b.png', 'rb'))
+    elif message.text == "525в":
+        bot.send_photo(message.chat.id, open('/list525v.png', 'rb'))
+    elif(message.text == "525i1"):
+        bot.send_photo(message.chat.id, open('/list525i1.png', 'rb'))
+    elif message.text == "525i2":
+        bot.send_photo(message.chat.id, open('/list525i2.png', 'rb'))
+    else:
+        bot.send_message(message.chat.id, text="На такую комманду я не запрограммировал..")
+
+bot.polling(none_stop=True)
